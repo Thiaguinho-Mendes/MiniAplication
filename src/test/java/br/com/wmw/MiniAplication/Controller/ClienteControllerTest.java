@@ -101,7 +101,7 @@ public class ClienteControllerTest {
 	void deveRetornarErrCpfCnpjJaCadastrado() throws Exception {
 		URI uri = new URI("/cliente");
 		String json = "{\"nome\":\"Renanzinh\",\"tipoPessoa\":\"JURIDICA\",\"cpfCnpj\":\"09.257.487/0001-67\",\"telefone\":\"99999999\",\"email\":\"Renanzinh@email.com\"}";
-		String response = "{\"campo\":\"CPF/CNPJ\",\"mensagem\":\"Registro já cadastrado\"}";
+		String response = "{\"campo\":\"CPF/CNPJ\",\"mensagem\":\"Cliente já cadastrado com mesmo CPF/CNPJ\"}";
 		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isInternalServerError()).andExpect(MockMvcResultMatchers.content().json(response));
 	}
 	

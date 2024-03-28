@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.wmw.MiniAplication.Controller.Validate.CamposValidator;
+import br.com.wmw.MiniAplication.Controller.Validate.HandlerValidator;
 import br.com.wmw.MiniAplication.Controller.dto.ClienteDto;
 import br.com.wmw.MiniAplication.Controller.dto.UpdateClienteDto;
 import br.com.wmw.MiniAplication.Domain.Cliente;
@@ -46,7 +46,7 @@ public class ClienteController {
 	public ResponseEntity<?> create(@RequestBody @Valid ClienteDto dto, UriComponentsBuilder uriBuilder) {
 		Cliente c = dto.converter(clienteRepository);
 		if (dto.exist(clienteRepository)) {
-			return ResponseEntity.internalServerError().body(new CamposValidator("CPF/CNPJ", "Registro já cadastrado"));
+			return ResponseEntity.internalServerError().body(new HandlerValidator().HandlerInternalServer());
 		}
 		clienteRepository.save(c);
 		URI uri = uriBuilder.path("/cliente/{codigo}").buildAndExpand(c.getCodigo()).toUri();
