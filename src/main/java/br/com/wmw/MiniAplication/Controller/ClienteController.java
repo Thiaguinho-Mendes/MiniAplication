@@ -56,6 +56,7 @@ public class ClienteController {
 	@PutMapping("/{id}")
 	public ResponseEntity<ClienteDto> update(@PathVariable("id") int id, @RequestBody @Valid UpdateClienteDto dto) {
 		Cliente c = dto.update(id, clienteRepository);
+		clienteRepository.save(c);
 		return ResponseEntity.ok(new ClienteDto(c));
 	}
 

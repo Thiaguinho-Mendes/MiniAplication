@@ -38,10 +38,6 @@ public class ClienteDto {
 			this.telefone = c.getTelefone();
 			this.email = c.getEmail();
 	}
-	
-	public Cliente converter(ClienteRepository cr) {
-		return new Cliente(nome, tipoPessoa, cpfCnpj, telefone, email);
-	}
 
 	public String getNome() {
 		return nome;
@@ -63,6 +59,10 @@ public class ClienteDto {
 		return email;
 	}
 
+	public Cliente converter(ClienteRepository cr) {
+		return new Cliente(nome, tipoPessoa, cpfCnpj, telefone, email);
+	}
+	
 	public boolean exist(ClienteRepository cr) {
 		List<Cliente> clientes = cr.findAll();
 		return clientes.stream().anyMatch(c -> c.getCpfCnpj().equals(this.cpfCnpj));
