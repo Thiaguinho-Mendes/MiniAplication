@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,11 +46,11 @@ public class ClienteController {
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody @Valid ClienteDto dto, UriComponentsBuilder uriBuilder) {
 		Cliente c = dto.converter(clienteRepository);
+		URI uri = uriBuilder.path("/cliente/{codigo}").buildAndExpand(c.getCodigo()).toUri();
 		if (dto.exist(clienteRepository)) {
 			return ResponseEntity.internalServerError().body(new HandlerValidator().HandlerInternalServer());
 		}
 		clienteRepository.save(c);
-		URI uri = uriBuilder.path("/cliente/{codigo}").buildAndExpand(c.getCodigo()).toUri();
 		return ResponseEntity.created(uri).body(new ClienteDto(c));
 	}
 
@@ -64,5 +65,17 @@ public class ClienteController {
 	public void deleteByCodigo(@PathVariable("id") int codigo) {
 		clienteRepository.deleteById(codigo);
 	}
+	
+	@Transactional
+	@DeleteMapping("/delete/{cpfCnpj}")
+	public void deleteByCpfCnpjo(@PathVariable("cpfCnpj") String cpfCnpj) {
+		clienteRepository.deleteByCpfCnpj(cpfCnpj);
+	}
+	
+	 @GetMapping("/exists/{cpfCnpj}")
+	    public ResponseEntity<Boolean> checkClienteExists(@PathVariable String cpfCnpj) {
+	        boolean exists = clienteRepository.existsByCpfCnpj(cpfCnpj);
+	        return ResponseEntity.ok(exists);
+	    }
 
 }

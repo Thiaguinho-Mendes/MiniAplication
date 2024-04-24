@@ -23,15 +23,20 @@ public class Cliente {
 	private String cpfCnpj;
 	private String telefone;
 	private String email;
+	
+	@Column
+	@Enumerated(EnumType.STRING)
+	private Origem origem;
 
 	public Cliente() {}
 	
-	public Cliente(String nome, TipoPessoa tipoPessoa, String cpfCnpj, String telefone, String email) {
+	public Cliente(String nome, TipoPessoa tipoPessoa, String cpfCnpj, String telefone, String email, Origem origem) {
 		this.nome = nome;
 		this.tipoPessoa = tipoPessoa;
 		this.cpfCnpj = cpfCnpj;
 		this.telefone = telefone;
 		this.email = email;
+		this.origem = origem;
 	}
 
 	public Integer getCodigo() {
@@ -64,6 +69,14 @@ public class Cliente {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Origem getOrigem() {
+		return origem;
+	}
+
+	public void setOrigem(Origem origem) {
+		this.origem = origem;
 	}
 
 }

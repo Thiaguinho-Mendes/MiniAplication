@@ -6,4 +6,8 @@ import br.com.wmw.MiniAplication.Domain.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
+	boolean existsByCpfCnpj(String cpfCnpj);
+
+	void deleteByCpfCnpj(String cpfCnpj);
+
 }

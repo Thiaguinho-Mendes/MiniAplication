@@ -1,1 +1,1 @@
-INSERT INTO CLIENTE (nome, TIPO_PESSOA, CPF_CNPJ, telefone, email) VALUES ('Thiaguinho','FISICA','111.111.111-11','(048) 99999-9999','thiaguinho@email.com');
+INSERT INTO CLIENTE (nome, TIPO_PESSOA, CPF_CNPJ, telefone, email, origem) VALUES ('Thiaguinho','FISICA','111.111.111-11','(48)99999-9999','thiaguinho@email.com','WEB');

@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.wmw.MiniAplication.Controller.Validate.CpfOrCnpj;
 import br.com.wmw.MiniAplication.Domain.Cliente;
+import br.com.wmw.MiniAplication.Domain.Origem;
 import br.com.wmw.MiniAplication.Domain.TipoPessoa;
 import br.com.wmw.MiniAplication.Repository.ClienteRepository;
 import jakarta.validation.constraints.Email;
@@ -29,6 +30,8 @@ public class ClienteDto {
 	@Email(message = "E-mail inválido")
 	private String email;
 	
+	private Origem origem;
+	
 	public ClienteDto() {}
 	
 	public ClienteDto(Cliente c) {
@@ -37,6 +40,7 @@ public class ClienteDto {
 			this.cpfCnpj = c.getCpfCnpj();
 			this.telefone = c.getTelefone();
 			this.email = c.getEmail();
+			this.origem = c.getOrigem();
 	}
 
 	public String getNome() {
@@ -58,9 +62,16 @@ public class ClienteDto {
 	public String getEmail() {
 		return email;
 	}
+	
+	public Origem getOrigem() {
+		return origem;
+	}
 
 	public Cliente converter(ClienteRepository cr) {
-		return new Cliente(nome, tipoPessoa, cpfCnpj, telefone, email);
+		if(getOrigem() == null) {
+			origem = Origem.WEB;
+		}
+		return new Cliente(nome, tipoPessoa, cpfCnpj, telefone, email, origem);
 	}
 	
 	public boolean exist(ClienteRepository cr) {
