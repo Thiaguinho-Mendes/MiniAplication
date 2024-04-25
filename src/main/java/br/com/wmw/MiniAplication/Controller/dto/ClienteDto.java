@@ -74,6 +74,11 @@ public class ClienteDto {
 		return new Cliente(nome, tipoPessoa, cpfCnpj, telefone, email, origem);
 	}
 	
+	public UpdateClienteDto converterUpdateClienteDto(ClienteRepository cr) {
+		Cliente c = converter(cr);
+		return new UpdateClienteDto(c);
+	}
+	
 	public boolean exist(ClienteRepository cr) {
 		List<Cliente> clientes = cr.findAll();
 		return clientes.stream().anyMatch(c -> c.getCpfCnpj().equals(this.cpfCnpj));

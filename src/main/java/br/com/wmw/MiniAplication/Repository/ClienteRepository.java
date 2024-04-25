@@ -9,5 +9,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	boolean existsByCpfCnpj(String cpfCnpj);
 
 	void deleteByCpfCnpj(String cpfCnpj);
+	
+	Cliente findByCpfCnpj(String cpfCnpj);
 
 }

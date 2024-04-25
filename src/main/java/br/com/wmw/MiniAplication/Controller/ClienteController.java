@@ -43,11 +43,15 @@ public class ClienteController {
 		return clienteRepository.findById(id);
 	}
 
+
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody @Valid ClienteDto dto, UriComponentsBuilder uriBuilder) {
 		Cliente c = dto.converter(clienteRepository);
 		URI uri = uriBuilder.path("/cliente/{codigo}").buildAndExpand(c.getCodigo()).toUri();
 		if (dto.exist(clienteRepository)) {
+			c = clienteRepository.findByCpfCnpj(c.getCpfCnpj());
+			UpdateClienteDto udto = dto.converterUpdateClienteDto(clienteRepository);
+			update(c.getCodigo(), udto);
 			return ResponseEntity.internalServerError().body(new HandlerValidator().HandlerInternalServer());
 		}
 		clienteRepository.save(c);

@@ -37,7 +37,7 @@ public class ClienteControllerTest {
 	@Order(2)
 	void deveRetornarTodosClientesCadastrado() throws Exception {
 		URI uri = new URI("/cliente");
-		String json = "[{\"codigo\":1,\"nome\":\"Thiaguinho\",\"tipoPessoa\":\"FISICA\",\"cpfCnpj\":\"111.111.111-11\",\"telefone\":\"(048) 99999-9999\",\"email\":\"thiaguinho@email.com\"}]";
+		String json = "[{\"codigo\":1,\"nome\":\"Thiaguinho\",\"tipoPessoa\":\"FISICA\",\"cpfCnpj\":\"123.216.869-60\",\"telefone\":\"(48)99999-9999\",\"email\":\"thiaguinho@email.com\"}]";
 		mockMvc.perform(MockMvcRequestBuilders.get(uri)).andExpect(MockMvcResultMatchers.content().json(json));
 	}
 	
